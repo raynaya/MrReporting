@@ -1,0 +1,14 @@
+This File will describe the various important details required to maintain this project : 
+
+Shamik
+Till now what i have done 
+I have created listeners both application and session listeners in differen packages. I have created a package to have the bean classes and a database conneciton in oracle. 
+
+DatabaseConnection_----------
+
+package contains a DbConnection class for ORacle connection and we just need to change a single string to make it work in other computers
+
+
+LOGIN CLASS------ in package Org.Project.Shamik.Login
+
+I have Created another login class which will be used to set the session objects and to embedd Beand objects into the session object
