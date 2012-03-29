@@ -18,7 +18,7 @@ public class ApplicationListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
 
         HashSet s=new HashSet();
-       sce.getServletContext().setAttribute("onlineList", s);
+       sce.getServletContext().setAttribute("OnlineList", s);
 
     }
 

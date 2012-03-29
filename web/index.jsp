@@ -14,9 +14,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="login" method="put">
+        <form action="login" method="post" >
         <input type="text" name="name" />
         <input type="submit" />
         </form>
+        <% if(request.getParameter("message")!=null){
+        %> <%=request.getParameter("message") %><%
+
+        }
+        %>
     </body>
 </html>

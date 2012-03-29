@@ -34,7 +34,7 @@ public class login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
          String name =request.getParameter("name");
-         String password=request.getParameter("password");
+        // String password=request.getParameter("password");
          /* Other details will follow
           *
           *
@@ -51,26 +51,34 @@ public class login extends HttpServlet {
                     *
                     */
                    
-                   s.execute("insert into mr (name) values ('"+name+"')");
-                   out.println("Database");
+                 //  s.execute("insert into mr (name) values ('"+name+"')"); Just to see if the db connection is working or not
+                   
                    HashSet set=(HashSet) getServletContext().getAttribute("OnlineList");
-                   out.println("hashset");
-            if(!set.add(set)){
+                   
+                   
+            if(!set.add(name)){
 
-                out.println("The name exists");
-                response.sendRedirect("/index.jsp");
-                //request.getSession().invalidate();
-                return;
+               
+                
+               request.getSession().invalidate();
+               response.sendRedirect("/index.jsp?message=User allready logged in !");
+               
+                
+
+
+               
             }
+            else {
                    out.println("The name doesnt exist");
                    Mr user=new Mr();
-                   user.setMr(name);
-                   request.getSession().setAttribute("userInfo",user);
+                   user.setName(name);
+                   request.getSession().setAttribute("UserInfo",user);
                    out.println("Succesfull");
 
-
+            }
         }
         catch(Exception e ){
+            e.printStackTrace();
         }
 
         finally {

@@ -5,6 +5,7 @@
 
 package Listener;
 
+import Org.MrReporting.Shamik.BeanClass.Mr;
 import java.util.*;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -16,17 +17,17 @@ import javax.servlet.http.HttpSessionListener;
 public class SessionListener implements HttpSessionListener  {
 
     public void sessionCreated(HttpSessionEvent se) {
-        HashSet gflist=new HashSet();
-
-
-             gflist.add("Our Mother");
-        se.getSession().setAttribute("gflist",gflist);
+      
 
 
     }
 
     public void sessionDestroyed(HttpSessionEvent se) {
-       se.getSession().removeAttribute("gflist");
+        Mr a=(Mr) se.getSession().getAttribute("UserInfo");
+        String name=a.getName();
+  HashSet s= (HashSet)se.getSession().getServletContext().getAttribute("OnlineList");
+  s.remove(name);
+  
     }
 
 }

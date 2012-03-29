@@ -13,11 +13,11 @@ public class Mr {
 
     private String name;
 
-    public void setMr(String name){
+    public void setName(String name){
 
         this.name=name;
     }
-    public String getMr(){
+    public String getName(){
     return name;
     }
 
