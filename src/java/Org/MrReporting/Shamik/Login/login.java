@@ -91,7 +91,7 @@ public class login extends HttpServlet {
                        out.println("send him to MR page");
                    }
                    else{
-                            out.println("send him to admin page");
+                            out.println("send him to admin page"); ///SUDIP HERE WE WILL DECIDE WHERE TO SEND HIM !!!!!
                             }
                    out.println("Succesfull");
 
