@@ -86,12 +86,16 @@ public class login extends HttpServlet {
                   user.setStateName(rs.getString("STATENAME"));
                   user.setDob(rs.getDate("DOB"));
                   user.setDoa(rs.getDate("DOA"));
+                  user.setMobileNumber(rs.getString("MOBILENUMBER"));
+                 
                    request.getSession().setAttribute("UserInfo",user);
                    if(rs.getString("GROUPNAME").equals("MR")){
                        out.println("send him to MR page");
+                             response.sendRedirect("/mrhome.jsp");
                    }
                    else{
                             out.println("send him to admin page"); ///SUDIP HERE WE WILL DECIDE WHERE TO SEND HIM !!!!!
+                      
                             }
                    out.println("Succesfull");
 
