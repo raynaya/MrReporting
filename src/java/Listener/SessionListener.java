@@ -24,7 +24,7 @@ public class SessionListener implements HttpSessionListener  {
 
     public void sessionDestroyed(HttpSessionEvent se) {
         Mr a=(Mr) se.getSession().getAttribute("UserInfo");
-        String name=a.getName();
+        String name=a.getLoginId();
   HashSet s= (HashSet)se.getSession().getServletContext().getAttribute("OnlineList");
   s.remove(name);
   

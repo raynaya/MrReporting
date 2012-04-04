@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DbConnection {
-       static String username = "scott", password = "tiger";
+       static String username = "mr", password = "jacksparrow";
     private static String Query ;
 
     public Connection createConnection() {
@@ -29,7 +29,7 @@ public class DbConnection {
            // Class.forName("com.mysql.jdbc.Driver");
         // Create a connection to the database
            // connection = DriverManager.getConnection("jdbc:mysql:http://mysql-shamik.jelastic.servint.net/test2", username, password);
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@ayan_pc.:1521:ORACLE",username,password);
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@ayan_pc.:1521:XE",username,password);
        
 
         } catch (SQLException ex) {

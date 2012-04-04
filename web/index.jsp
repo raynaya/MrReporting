@@ -15,7 +15,8 @@
     </head>
     <body>
         <form action="login" method="post" >
-        <input type="text" name="name" />
+        <input type="text" name="loginid" />
+        <input type="text" name="pass" />
         <input type="submit" />
         </form>
         <% if(request.getParameter("message")!=null){

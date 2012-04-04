@@ -33,7 +33,8 @@ public class login extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-         String name =request.getParameter("name");
+         String loginid =request.getParameter("loginid");
+         String pass1 =request.getParameter("pass");
         // String password=request.getParameter("password");
          /* Other details will follow
           *
@@ -52,11 +53,17 @@ public class login extends HttpServlet {
                     */
                    
                  //  s.execute("insert into mr (name) values ('"+name+"')"); Just to see if the db connection is working or not
-                   
+                   String query="select * from USERMASTER where LOGINID='"+loginid+"'";
+                   ResultSet rs=s.executeQuery(query);
+                   rs.next();
+                  String pass=rs.getString("LOGINPASSWORD");
+                   if(!pass.equals(pass1)){
+                        response.sendRedirect("/index.jsp?message=User/password doesnt match !");
+                   }
                    HashSet set=(HashSet) getServletContext().getAttribute("OnlineList");
                    
                    
-            if(!set.add(name)){
+            if(!set.add(loginid)){
 
                
                 
@@ -71,8 +78,21 @@ public class login extends HttpServlet {
             else {
                    out.println("The name doesnt exist");
                    Mr user=new Mr();
-                   user.setName(name);
+                   user.setLoginId(loginid);
+                   user.setFirstName(rs.getString("FIRSTNAME"));
+                   user.setGroupName(rs.getString("GROUPNAME"));
+                   user.setLastName(rs.getString("LASTNAME"));
+                  user.setHqName(rs.getString("HQNAME"));
+                  user.setStateName(rs.getString("STATENAME"));
+                  user.setDob(rs.getDate("DOB"));
+                  user.setDoa(rs.getDate("DOA"));
                    request.getSession().setAttribute("UserInfo",user);
+                   if(rs.getString("GROUPNAME").equals("MR")){
+                       out.println("send him to MR page");
+                   }
+                   else{
+                            out.println("send him to admin page");
+                            }
                    out.println("Succesfull");
 
             }
