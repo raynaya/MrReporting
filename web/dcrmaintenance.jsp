@@ -270,9 +270,10 @@
 				 month=d.getMonth()+1;
 				 year=d.getFullYear();
 				 d=date+"."+month+"."+year;
-				
 				$("#date").attr('value',d);
+
 			}
+
         </script>
             <form method="get"  >
 
@@ -282,16 +283,39 @@
 
 <br/>
 <input id="date" type="hidden" name="date" value="" />
+ 
         <div ><span >Area:
-        <select name="area">
+        <select id="visitedarea" name="area">
+            <option value="">Select an area</option>
             <% while(area.next()){ %>
             <option value=<%=area.getString("AREANAME")%> > <%=area.getString("AREANAME")%></option>
     
                 <%}%>
         </select></span>
-        <span > Doctors Name :<select name="Dr">
-        <option value="AmitB">Amit Banerjee</option>
-      <option value="SkD">SK Dutta</option>
+
+   
+	
+		    <script type="text/javascript" charset="utf-8">
+$(function(){
+  $("select#visitedarea").change(function(){
+    $.getJSON("/selectDoctor",{id: $(this).val(), ajax: 'true'}, function(j){
+      var options = '';
+     
+      for (var i = 0; i < j.length; i++) {
+        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+        
+      }
+      $("select#doctor").html(options);
+    })
+	
+	
+  })
+})
+</script>
+		
+        <span > Doctors Name :<select id="doctor" name="Dr">
+        <option value="">select area first</option>
+      
         </select>  </span>
         <span >
         Visit Time:
@@ -351,3 +375,17 @@
  </div>
   </body>
 </html>
+<!--GROUPNAME	VARCHAR2(50)	Yes	 -	 -
+HQNAME	VARCHAR2(50)	Yes	 -	 -
+STATENAME	VARCHAR2(50)	Yes	 -	 -
+LOGINID	VARCHAR2(20)	Yes	 -	 -
+DCRDATE	DATE	Yes	 -	 -
+TARGETDCRDATE	DATE	Yes	 -	 -
+LATEDCR	CHAR(2)	Yes	 -	 -
+AREACODE	VARCHAR2(50)	Yes	 -	 -
+DOCNAME	VARCHAR2(50)	Yes	 -	 -
+VISITTYPE	CHAR(1)	Yes	 -	 -
+VISITSTATUS	CHAR(1)	Yes	 -	 -
+BUSINESSSTATUS	NUMBER(9,0)	Yes	 -	 -
+PRODSTATUS	CHAR(1)	Yes
+-->
