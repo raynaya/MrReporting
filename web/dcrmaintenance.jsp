@@ -275,7 +275,7 @@
 			}
 
         </script>
-            <form method="get"  >
+            <form method="get"  action="storeDcr" >
 
 <div id='jqxWidget1' >
                Date :
@@ -298,6 +298,7 @@
 		    <script type="text/javascript" charset="utf-8">
 $(function(){
   $("select#visitedarea").change(function(){
+      $("select#product").html("");
     $.getJSON("/selectDoctor",{id: $(this).val(), ajax: 'true'}, function(j){
       var options = '';
      
@@ -306,6 +307,8 @@ $(function(){
         
       }
       $("select#doctor").html(options);
+      
+
     })
 	
 	
@@ -320,8 +323,8 @@ $(function(){
         <span >
         Visit Time:
         <span id="box">
-        Morning : <input type="radio" value="Morning" name="time"/>
-        Evening : <input type="radio" value="Evening" name="time"/>
+        Morning : <input type="radio" value="M" name="time"/>
+        Evening : <input type="radio" value="E" name="time"/>
         </span>
 
         </span>
@@ -334,30 +337,47 @@ $(function(){
 
         Visit Status :
         <span id="box">
-        ASM <input type="checkbox" value ="asm" name="visitstatus"/>
-        ZSM<input type="checkbox" value="zsm" name="visitstatus"/>
+        ASM <input type="checkbox" value ="A" name="visitstatus"/>
+        ZSM<input type="checkbox" value="Z" name="visitstatus"/>
+        Other<input type="checkbox" value="O" name="visitstatus"/>
         </span>
          </span>
          <span > Product Status :
          <span id="box">
-           Old<input type="radio" value ="old" name="prodstatus"/>
-           New<input type="radio" value ="new" name="prodstatus"/>
+           Old<input type="radio" value ="O" name="prodstatus"/>
+           New<input type="radio" value ="N" name="prodstatus"/>
          </span>
          </span>
          </div>
 
         <br/>
         <br/>
+		<script type="text/javascript" charset="utf-8">
+$(function(){
+  $("select#doctor").change(function(){
+    $.getJSON("/selectMedicine",{id: $(this).val(), ajax: 'true'}, function(j){
+      var options = '';
+     
+      for (var i = 0; i < j.length; i++) {
+        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+        
+      }
+      $("select#product").html(options);
+    })
+	
+	
+  })
+})
+</script>
 
     <h4> Products Shown and Quantity given.</h4>
     <TABLE id="dataTable" cellpadding="5px"  rules="all" border="1">
 
         <tr>
             <td><INPUT type="checkbox" name="chk"/></td>
-            <td>  <SELECT name="productname">
-                    <OPTION value="zintac">zintac</OPTION>
-                   <OPTION value="rantac">rantac</OPTION>
-                </SELECT>
+            <td>  <SELECT id ="product" name="productname">
+                    <OPTION value="">select Doctor</OPTION>
+                   </SELECT>
             </td>
             <td>
                 <input type="text" size="8px"  title="quantity" name="quantity" />
@@ -375,17 +395,3 @@ $(function(){
  </div>
   </body>
 </html>
-<!--GROUPNAME	VARCHAR2(50)	Yes	 -	 -
-HQNAME	VARCHAR2(50)	Yes	 -	 -
-STATENAME	VARCHAR2(50)	Yes	 -	 -
-LOGINID	VARCHAR2(20)	Yes	 -	 -
-DCRDATE	DATE	Yes	 -	 -
-TARGETDCRDATE	DATE	Yes	 -	 -
-LATEDCR	CHAR(2)	Yes	 -	 -
-AREACODE	VARCHAR2(50)	Yes	 -	 -
-DOCNAME	VARCHAR2(50)	Yes	 -	 -
-VISITTYPE	CHAR(1)	Yes	 -	 -
-VISITSTATUS	CHAR(1)	Yes	 -	 -
-BUSINESSSTATUS	NUMBER(9,0)	Yes	 -	 -
-PRODSTATUS	CHAR(1)	Yes
--->

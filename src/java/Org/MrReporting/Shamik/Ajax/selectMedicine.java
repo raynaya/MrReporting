@@ -6,11 +6,9 @@
 package Org.MrReporting.Shamik.Ajax;
 
 import DatabaseConnection.DbConnection;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.lang.Object;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +20,7 @@ import org.json.simple.JSONObject;
  *
  * @author shamik
  */
-public class selectDoctor extends HttpServlet {
+public class selectMedicine extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,24 +31,24 @@ public class selectDoctor extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-response.setContentType("application/json");
+    response.setContentType("application/json");
 DbConnection db = new DbConnection();
             Connection c=db.createConnection();
-            String area=request.getParameter("id");
+            String doctor=request.getParameter("id");
 
 
 PrintWriter out = response.getWriter();
         try{
           Statement s =c.createStatement();
-  ResultSet doctor=s.executeQuery("select DOCNAME from DOCTORMASTER where AREANAME='"+area+"'");
+  ResultSet product=s.executeQuery("select PRODUCTNAME from DOCPRODUCTS where DOCNAME='"+doctor+"'");
  // [ {"optionValue":10, "optionDisplay": "Remy"},]
 //  JSONObject j= new JSONObject();
 //  out.print("[");
   JSONArray a=new JSONArray();
-  while(doctor.next()){
+  while(product.next()){
 JSONObject j=new JSONObject();
-j.put("optionValue", doctor.getString("DOCNAME"));
-j.put("optionDisplay", doctor.getString("DOCNAME"));
+j.put("optionValue", product.getString("PRODUCTNAME"));
+j.put("optionDisplay", product.getString("PRODUCTNAME"));
 a.add(j);
   //out.print("{\"optionValue\":\""+doctor.getString("DOCNAME")+"\",\"optionDisplay\":\""+doctor.getString("DOCNAME")+"\"},");
             }
@@ -64,9 +62,10 @@ c.close();
         }
         finally {
             out.close();
-            
+
         }
-    } 
+    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
