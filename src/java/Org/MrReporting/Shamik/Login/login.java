@@ -67,7 +67,7 @@ public class login extends HttpServlet {
 
                
                 
-               request.getSession().invalidate();
+               //request.getSession().invalidate();
                response.sendRedirect("/index.jsp?message=User allready logged in !");
                
                 
@@ -91,7 +91,7 @@ public class login extends HttpServlet {
                    request.getSession().setAttribute("UserInfo",user);
                    if(rs.getString("GROUPNAME").equals("MR")){
                        out.println("send him to MR page");
-                             response.sendRedirect("/mrhome.jsp");
+                             response.sendRedirect("/dcrmaintenance.jsp");///SUDIP HERE WE WILL DECIDE WHERE TO SEND HIM !!!!!
                    }
                    else{
                             out.println("send him to admin page"); ///SUDIP HERE WE WILL DECIDE WHERE TO SEND HIM !!!!!

@@ -1,0 +1,34 @@
+#area {
+	float: right;
+	position: relative;
+	top: 10px;
+	right: 10px;
+}
+#box {
+	border: thin solid #CCC;
+	padding: 4px;
+}
+#headerbar{
+    width: 90%;
+    top:0px;
+    left:60px;
+    position: fixed;
+    background-color: #cccccc;
+    height:60px;
+}
+#container {
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+	border-top-style: dotted;
+	border-right-style: dotted;
+	border-bottom-style: dotted;
+	border-left-style: dotted;
+	padding: 20px;
+	width: auto;
+       position:absolute;
+
+        top:200px;
+        left :200px;
+}
