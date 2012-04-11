@@ -3,26 +3,20 @@
  * and open the template in the editor.
  */
 
-package Org.MrReporting.Shamik.Ajax;
-
-import DatabaseConnection.DbConnection;
+package Org.MrReporting.Shamik.Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
-import java.lang.Object;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /**
  *
  * @author shamik
  */
-public class selectDoctor extends HttpServlet {
+public class logout extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,42 +27,13 @@ public class selectDoctor extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-response.setContentType("application/json");
-DbConnection db = new DbConnection();
-            Connection c=db.createConnection();
-            String area=request.getParameter("id");
-
-
-PrintWriter out = response.getWriter();
-        try{
-          Statement s =c.createStatement();
-  ResultSet doctor=s.executeQuery("select DOCNAME from DOCTORMASTER where AREANAME='"+area+"'");
- // [ {"optionValue":10, "optionDisplay": "Remy"},]
-//  JSONObject j= new JSONObject();
-//  out.print("[");
-  JSONArray a=new JSONArray();
-  JSONObject b=new JSONObject();
-  b.put("optionValue","");
-  b.put("optionDisplay", "SelectDoctor");
-  a.add(b);
-  while(doctor.next()){
-JSONObject j=new JSONObject();
-j.put("optionValue", doctor.getString("DOCNAME"));
-j.put("optionDisplay", doctor.getString("DOCNAME"));
-a.add(j);
-  //out.print("{\"optionValue\":\""+doctor.getString("DOCNAME")+"\",\"optionDisplay\":\""+doctor.getString("DOCNAME")+"\"},");
-            }
-  out.print(a);
-c.close();
-        }
-
-        catch(Exception e){
-
-        e.printStackTrace();
-        }
-        finally {
-            out.close();
+      
+        
+        try {
+            request.getSession().invalidate();
             
+        } finally { 
+       
         }
     } 
 

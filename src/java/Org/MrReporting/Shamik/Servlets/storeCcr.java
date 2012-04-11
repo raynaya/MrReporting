@@ -3,26 +3,23 @@
  * and open the template in the editor.
  */
 
-package Org.MrReporting.Shamik.Ajax;
+package Org.MrReporting.Shamik.Servlets;
 
 import DatabaseConnection.DbConnection;
-
+import Org.MrReporting.Shamik.BeanClass.Mr;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.lang.Object;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /**
  *
  * @author shamik
  */
-public class selectDoctor extends HttpServlet {
+public class storeCcr extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,41 +30,54 @@ public class selectDoctor extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-response.setContentType("application/json");
-DbConnection db = new DbConnection();
+     
+        try {
+            DbConnection db = new DbConnection();
             Connection c=db.createConnection();
-            String area=request.getParameter("id");
+
+            Mr userInfo= (Mr) request.getSession().getAttribute("UserInfo");
+    String groupname=userInfo.getGroupName();
+    String hqname=userInfo.getHqName();
+    String statename=userInfo.getStateName();
+    String loginid=userInfo.getLoginId();
+    String targetdcrdate= request.getParameter("date");
+    String areacode= request.getParameter("area");
+    String name= request.getParameter("name");
+    float ORDERNUMBER= Float.parseFloat(request.getParameter("ORDERNUMBER"));
+     float ORDERAMOUNT= Float.parseFloat(request.getParameter("ORDERVALUE"));
+PreparedStatement p=c.prepareStatement("insert into CHEMISTDCR (GROUPNAME,HQNAME,STATENAME,LOGINID,DCRDATE,TARGETDCRDATE,AREACODE,NAME,ORDERNUMBER,ORDERAMOUNT)values (?,?,?,?,sysdate,to_date('"+targetdcrdate+"','dd/mm/yyyy'),?,?,?,?)");
+p.setString(1,groupname);
+p.setString(2, hqname);
+p.setString(3, statename);
+p.setString(4, loginid);
+p.setString(5,areacode);
+p.setString(6,name);
+p.setFloat(7,ORDERNUMBER);
+p.setFloat(8,ORDERAMOUNT);
+p.execute();
+response.sendRedirect("/ccrmaintenance.jsp");
+   /* groupName varchar2(50)
+hqName varchar2(50)
+stateName varchar2(50)
+loginID varchar2(20)
+dcrDate Date
+targetDcrDate Date
+lateDCR boolean
+areacode varchar2(50)
+name varchar2(50) – chemist name
+orderNumber(50) – order number
+orderAmount(15,2) – Order Amount
+*/
 
 
-PrintWriter out = response.getWriter();
-        try{
-          Statement s =c.createStatement();
-  ResultSet doctor=s.executeQuery("select DOCNAME from DOCTORMASTER where AREANAME='"+area+"'");
- // [ {"optionValue":10, "optionDisplay": "Remy"},]
-//  JSONObject j= new JSONObject();
-//  out.print("[");
-  JSONArray a=new JSONArray();
-  JSONObject b=new JSONObject();
-  b.put("optionValue","");
-  b.put("optionDisplay", "SelectDoctor");
-  a.add(b);
-  while(doctor.next()){
-JSONObject j=new JSONObject();
-j.put("optionValue", doctor.getString("DOCNAME"));
-j.put("optionDisplay", doctor.getString("DOCNAME"));
-a.add(j);
-  //out.print("{\"optionValue\":\""+doctor.getString("DOCNAME")+"\",\"optionDisplay\":\""+doctor.getString("DOCNAME")+"\"},");
-            }
-  out.print(a);
-c.close();
-        }
-
+    }
         catch(Exception e){
 
-        e.printStackTrace();
+            e.printStackTrace();
         }
+
+
         finally {
-            out.close();
             
         }
     } 

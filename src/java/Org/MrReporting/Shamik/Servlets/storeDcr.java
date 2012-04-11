@@ -29,26 +29,10 @@ public class storeDcr extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        
         DbConnection db = new DbConnection();
             Connection c=db.createConnection();
-            /*
-       DOCTORDCR Table
-GROUPNAME	VARCHAR2(50)	Yes	 -	 -
-HQNAME	VARCHAR2(50)	Yes	 -	 -
-STATENAME	VARCHAR2(50)	Yes	 -	 -
-LOGINID	VARCHAR2(20)	Yes	 -	 -
-DCRDATE	DATE	Yes	 -	 -
-TARGETDCRDATE	DATE	Yes	 -	 -
-LATEDCR	CHAR(2)	Yes	 -	 -
-AREACODE	VARCHAR2(50)	Yes	 -	 -
-DOCNAME	VARCHAR2(50)	Yes	 -	 -
-VISITTYPE	CHAR(1)	Yes	 -	 -
-VISITSTATUS	CHAR(1)	Yes	 -	 -
-BUSINESSSTATUS	NUMBER(9,0)	Yes	 -	 -
-PRODSTATUS	CHAR(1)	Yes
-*/
+       
             Mr userInfo= (Mr) request.getSession().getAttribute("UserInfo");
 			String groupname=userInfo.getGroupName();
     String hqname=userInfo.getHqName();
@@ -94,14 +78,14 @@ QTY	NUMBER(5,0)	Yes	 -	 -
 SAMPLE	CHAR(1)	Yes	 -	 D
  DOCTORREMARK	VARCHAR2(200)	*/
 response.sendRedirect("/dcrmaintenance.jsp");
-
+//getServletContext().getRequestDispatcher("/dcrmaintenance.jsp").forward(request, response);
 
         }
         catch(Exception e){
 
         }
         finally {
-            out.close();
+            
         }
     } 
 

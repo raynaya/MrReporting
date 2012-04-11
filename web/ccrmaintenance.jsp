@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : mrhome
     Created on : Apr 4, 2012, 1:33:43 PM
     Author     : shamik
@@ -13,61 +13,7 @@
    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <head> <SCRIPT type="text/javascript"   language="javascript">
-        function addRow(tableID) {
-
-            var table = document.getElementById(tableID);
-
-            var rowCount = table.rows.length;
-            var row = table.insertRow(rowCount);
-
-            var colCount = table.rows[0].cells.length;
-
-            for(var i=0; i<colCount; i++) {
-
-                var newcell = row.insertCell(i);
-
-                newcell.innerHTML = table.rows[0].cells[i].innerHTML;
-                //alert(newcell.childNodes);
-                switch(newcell.childNodes[0].type) {
-                    case "text":
-                            newcell.childNodes[0].value = "";
-                            break;
-                    case "checkbox":
-                            newcell.childNodes[0].checked = false;
-                            break;
-                    case "select-one":
-                            newcell.childNodes[0].selectedIndex = 0;
-                            break;
-                }
-            }
-        }
-
-        function deleteRow(tableID) {
-            try {
-            var table = document.getElementById(tableID);
-            var rowCount = table.rows.length;
-
-            for(var i=0; i<rowCount; i++) {
-                var row = table.rows[i];
-                var chkbox = row.cells[0].childNodes[0];
-                if(null != chkbox && true == chkbox.checked) {
-                    if(rowCount <= 1) {
-                        alert("Cannot delete all the rows.");
-                        break;
-                    }
-                    table.deleteRow(i);
-                    rowCount--;
-                    i--;
-                }
-
-            }
-            }catch(e) {
-                alert(e);
-            }
-        }
- 
-    </SCRIPT>
+    <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="jqwidgets/styles/jqx.base.css" type="text/css" />
@@ -87,30 +33,22 @@
     <div id="headerbar">
     <% Mr userInfo= (Mr) request.getSession().getAttribute("UserInfo");
     String hqname=userInfo.getHqName();
+    String statename=userInfo.getStateName();
+   
     DbConnection db = new DbConnection();
             Connection c=db.createConnection();
             Statement s =c.createStatement();
-        ResultSet  area =s.executeQuery("select * from AREAMASTER where HQNAME='"+hqname+"'");
-       
-        %>
-        <span id="welcomename" style=" position: absolute; font-weight: 600; color: brown;   margin-left: 20px;  padding-top: 20px " > Hello <%=userInfo.getFirstName()%></span>
-        <div class="headerbarlist" title="Log Out" id="logout"
-             onclick="$.ajax({
-  url: 'logout',
-  success: function(data) {
-    window.location.assign('\index.jsp');
+        ResultSet  area =s.executeQuery("select * from AREAMASTER where HQNAME='"+hqname+"'and STATENAME='"+statename+"'");
 
-  }
-});"  >
-            <a></a>
+        %>
+        <h1>Hello <%=userInfo.getFirstName()%></h1>
     </div>
-    </div>
-        
+
         <script type="text/javascript">
             $(document).ready(function () {
                 var theme = getTheme();
                 // Create a jqxMenu
-                $("#jqxMenu").jqxMenu({ width: '950', height: '40px',autoOpen: false, showTopLevelArrows: true , theme: theme });
+                $("#jqxMenu").jqxMenu({ width: '1000', height: '40px',autoOpen: false, showTopLevelArrows: true , theme: theme });
                 $("#jqxMenu").css('visibility', 'visible');
                 $("#disabled").jqxCheckBox({ theme: theme, width: '150px', height: '20px' });
                 $("#open").jqxCheckBox({ theme: theme, width: '150px', height: '20px' });
@@ -173,7 +111,7 @@
                 });
             });
         </script>
-         <div id='jqxWidget' style='height: 300px; position: relative; top: 100px; left: 80px; '>
+          <div id='jqxWidget' style='height: 300px; position: relative; top: 100px; left: 60px; '>
             <div id='jqxMenu' style='visibility: hidden; margin-left: 60px;'>
                 <ul>
                     <li><a href="#Home">Home</a></li>
@@ -275,144 +213,108 @@
 
           function getdate(){
 			d=$("#jqxWidget1").jqxDateTimeInput('getDate');
-				 
+
 				date=d.getDate();
 				 month=d.getMonth()+1;
 				 year=d.getFullYear();
 				 d=date+"."+month+"."+year;
 				$("#date").attr('value',d);
                                 if(document.getElementById("visitedarea").value=="")
+                                    {alert("fill up all the fields");
+                                    return false;
+                                    }
+                                if(document.getElementById("chemist").value=="")
+                                    {alert("fill up all the fields");
+                                    return false;
+                                    }
+                                if(document.getElementById("orderno").value=="")
+                                    {alert("fill up all the fields");
+                                    return false;
+                                    }
+                                if(document.getElementById("orderval").value=="")
                                    {alert("fill up all the fields");
                                     return false;
                                     }
-                                 if(document.getElementById("doctor").value=="")
-                                   {alert("fill up all the fields");
-                                    return false;
-                                    }
-                                  
-
                                return true;
-
 			}
 
         </script>
-            <form method="post"   action="storeDcr" >
+            <form method="get"  action="storeCcr" >
 
-<div id='jqxWidget1' >
+                <div id='jqxWidget1' title="Enter the Date of DCR"  >
                Date :
         </div><br>
 
 <br/>
 <input id="date" type="hidden" name="date" value="" />
- 
+
         <div ><span >Area:
-        <select id="visitedarea" name="area">
+                <select title="Select Area" tabindex="2" id="visitedarea" name="area">
             <option value="">Select an area</option>
             <% while(area.next()){ %>
             <option value=<%=area.getString("AREANAME")%> > <%=area.getString("AREANAME")%></option>
-    
+
                 <%}%>
         </select></span>
 
-   
-	
+
+
 		    <script type="text/javascript" charset="utf-8">
 $(function(){
   $("select#visitedarea").change(function(){
-      $("select#product").html("");
-    $.getJSON("/selectDoctor",{id: $(this).val(), ajax: 'true'}, function(j){
+   
+    $.getJSON("/selectChemist",{id: $(this).val(), ajax: 'true'}, function(j){
       var options = '';
-     
+
       for (var i = 0; i < j.length; i++) {
         options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
-        
+
       }
-      $("select#doctor").html(options);
-      
+      $("select#chemist").html(options);
+
 
     })
-	
-	
+
+
   })
 })
 </script>
-		
-        <span > Doctors Name :<select id="doctor" name="Dr">
-        <option value="">select area first</option>
-      
-        </select>  </span>
-        <span >
-        Visit Time:
-        <span id="box">
-        Morning : <input type="radio" value="M" name="time"/>
-        Evening : <input type="radio" value="E" name="time"/>
-        </span>
 
-        </span>
+        <span > Chemist Name :<select tabindex="3"  id="chemist" name="name">
+        <option value="">select area first</option>
+
+        </select>  </span>
+        
 
         </div>
         <br>
 <br>
 
-        <div ><span>
+        <div >
 
-        Visit Status :
-        <span id="box">
-        ASM <input type="checkbox" value ="A" name="visitstatus"/>
-        ZSM<input type="checkbox" value="Z" name="visitstatus"/>
-        Other<input type="checkbox" value="O" name="visitstatus"/>
+        Product Order No :
+        <span >
+            <input type="text" id="orderno" tabindex="4"  title="Enter the Order no" name="ORDERNUMBER" />
         </span>
-         </span>
-         <span > Product Status :
-         <span id="box">
-           Old<input type="radio" value ="O" name="prodstatus"/>
-           New<input type="radio" value ="N" name="prodstatus"/>
+         
+         <span > Order Value:
+         <span >
+             <input type="text" id="orderval" tabindex="5" title="Enter the Order Value" name="ORDERVALUE" />
          </span>
          </span>
          </div>
 
         <br/>
         <br/>
-		<script type="text/javascript" charset="utf-8">
-$(function(){
-  $("select#doctor").change(function(){
-    $.getJSON("/selectMedicine",{id: $(this).val(), ajax: 'true'}, function(j){
-      var options = '';
-     
-      for (var i = 0; i < j.length; i++) {
-        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
-        
-      }
-      $("select#product").html(options);
-    })
-	
-	
-  })
-})
-</script>
+		
 
-    <h4> Products Shown and Quantity given.</h4>
-    <TABLE id="dataTable" cellpadding="5px"  rules="all" border="1">
-
-        <tr>
-            <td><INPUT type="checkbox" name="chk"/></td>
-            <td>  <SELECT id ="product" name="productname">
-                    <OPTION value="">select Doctor</OPTION>
-                   </SELECT>
-            </td>
-            <td>
-                <input type="text" size="8px"  title="quantity" name="quantity" />
-                       
-            </td>
-        </tr>
-    </TABLE><br>
+   
 <br>
-<input type="submit" onclick="return getdate()" />
+<input type="submit" tabindex="6"  onclick="return getdate()" />
             </form>
-    <INPUT type="button" value="Add Row" onClick="addRow('dataTable')" />
-
-    <INPUT type="button" value="Delete Row" onClick="deleteRow('dataTable')" />
+   
 
  </div>
+        
   </body>
 </html>

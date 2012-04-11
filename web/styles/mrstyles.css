@@ -9,12 +9,13 @@
 	padding: 4px;
 }
 #headerbar{
-    width: 90%;
+    width: 80%;
     top:0px;
-    left:60px;
+    left:120px;
     position: fixed;
     background-color: #cccccc;
     height:60px;
+    
 }
 #container {
 	border-top-width: thin;
@@ -31,4 +32,30 @@
 
         top:200px;
         left :200px;
+}
+#logout {
+ height: 18px;
+ width: 20px;
+  background-image: url("../images/layout-s5ea64f90ae.png");
+  background-repeat:  no-repeat;
+  background-position: 0px -18px;
+  right: 10px;
+   position: absolute;
+}
+#logout:hover {
+    height: 18px;
+ width: 20px;
+  background-image: url("../images/layout-s5ea64f90ae.png");
+  background-repeat:  no-repeat;
+  background-position: 0px -36px;
+  right: 10px;
+   position: absolute;
+
+    
+}
+
+.headerbarlist{
+
+    margin-top: 20px;
+    
 }
