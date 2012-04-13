@@ -58,7 +58,7 @@ public class login extends HttpServlet {
                    rs.next();
                   String pass=rs.getString("LOGINPASSWORD");
                    if(!pass.equals(pass1)){
-                        response.sendRedirect("/index.jsp?message=User/password doesnt match !");
+                        response.sendRedirect("/login.jsp?message=User/password doesnt match !");
                    }
                    HashSet set=(HashSet) getServletContext().getAttribute("OnlineList");
                    
@@ -68,7 +68,7 @@ public class login extends HttpServlet {
                
                 
                //request.getSession().invalidate();
-               response.sendRedirect("/index.jsp?message=User allready logged in !");
+               response.sendRedirect("/login.jsp?message=User allready logged in !");
                
                 
 
