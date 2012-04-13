@@ -33,17 +33,24 @@
     <div id="headerbar">
     <% Mr userInfo= (Mr) request.getSession().getAttribute("UserInfo");
     String hqname=userInfo.getHqName();
-    String statename=userInfo.getStateName();
-   
     DbConnection db = new DbConnection();
             Connection c=db.createConnection();
             Statement s =c.createStatement();
-        ResultSet  area =s.executeQuery("select * from AREAMASTER where HQNAME='"+hqname+"'and STATENAME='"+statename+"'");
+        ResultSet  area =s.executeQuery("select * from AREAMASTER where HQNAME='"+hqname+"'");
 
         %>
-        <h1>Hello <%=userInfo.getFirstName()%></h1>
-    </div>
+        <span id="welcomename" style=" position: absolute; font-weight: 600; color: brown;   margin-left: 20px;  padding-top: 20px " > Hello <%=userInfo.getFirstName()%></span>
+        <div class="headerbarlist" title="Log Out" id="logout"
+             onclick="$.ajax({
+  url: 'logout',
+  success: function(data) {
+    window.location.assign('\login.jsp');
 
+  }
+});"  >
+            <a></a>
+    </div>
+    </div>
         <script type="text/javascript">
             $(document).ready(function () {
                 var theme = getTheme();

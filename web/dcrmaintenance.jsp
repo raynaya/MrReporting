@@ -98,7 +98,7 @@
              onclick="$.ajax({
   url: 'logout',
   success: function(data) {
-    window.location.assign('\index.jsp');
+    window.location.assign('\login.jsp');
 
   }
 });"  >
