@@ -24,5 +24,6 @@
 
         }
         %>
+        <% request.getSession().getAttribute("UserInfo"); %>
     </body>
 </html>

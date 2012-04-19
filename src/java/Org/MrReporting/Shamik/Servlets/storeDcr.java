@@ -77,6 +77,8 @@ PRODUCTNAME	VARCHAR2(50)	Yes	 -	 -
 QTY	NUMBER(5,0)	Yes	 -	 -
 SAMPLE	CHAR(1)	Yes	 -	 D
  DOCTORREMARK	VARCHAR2(200)	*/
+String message="data added";
+request.getSession().setAttribute("message",message);
 response.sendRedirect("/dcrmaintenance.jsp");
 //getServletContext().getRequestDispatcher("/dcrmaintenance.jsp").forward(request, response);
 

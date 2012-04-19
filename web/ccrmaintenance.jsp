@@ -55,7 +55,7 @@
             $(document).ready(function () {
                 var theme = getTheme();
                 // Create a jqxMenu
-                $("#jqxMenu").jqxMenu({ width: '1000', height: '40px',autoOpen: false, showTopLevelArrows: true , theme: theme });
+                $("#jqxMenu").jqxMenu({ mode:'vertical', width: '150px', height: '200px',autoOpen: false, showTopLevelArrows: true , theme: theme });
                 $("#jqxMenu").css('visibility', 'visible');
                 $("#disabled").jqxCheckBox({ theme: theme, width: '150px', height: '20px' });
                 $("#open").jqxCheckBox({ theme: theme, width: '150px', height: '20px' });
@@ -118,28 +118,19 @@
                 });
             });
         </script>
-          <div id='jqxWidget' style='height: 300px; position: relative; top: 100px; left: 60px; '>
+          <div id='jqxWidget' style='height: 300px; position: relative; top: 100px; left: 80px; '>
             <div id='jqxMenu' style='visibility: hidden; margin-left: 60px;'>
                 <ul>
-                    <li><a href="#Home">Home</a></li>
+                    <li><a href="/home.jsp">Home</a></li>
                     <li>MrTasks
                         <ul style='width: 250px;'>
+                            <li><a href="#">Tour Plan</a></li>
                             <li><a href="/dcrmaintenance.jsp">DCR</a></li>
                             <li><a href="/ccrmaintenance.jsp">ChemistCR</a></li>
-                            <li><a href="#Government">Government</a></li>
-                            <li><a href="#Manufacturing">Manufacturing</a></li>
-                            <li type='separator'></li>
-                            <li>Software Solutions
-                                <ul style='width: 220px;'>
-                                    <li><a href="#ConsumerPhoto">Consumer photo and video</a></li>
-                                    <li><a href="#Mobile">Mobile</a></li>
-                                    <li><a href="#RIA">Rich Internet applications</a></li>
-                                    <li><a href="#TechnicalCommunication">Technical communication</a></li>
-                                    <li><a href="#Training">Training and eLearning</a></li>
-                                    <li><a href="#WebConferencing">Web conferencing</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">All industries and solutions</a></li>
+                            <li><a href="#">Stockist Sales Position</a></li>
+                            <li><a href="#">Expenses</a></li>
+                            <li><a href="#">Leave Application</a></li>
+
                         </ul>
                     </li>
                     <li>Products
@@ -194,15 +185,7 @@
                             <li><a href="#Become an affiliate">Become an affiliate</a></li>
                         </ul>
                     </li>
-					<li style='  right: 10px; position: relative; list-style: none;' ignoretheme='true'>
 
-                        <div style='float: left; height: 35px; margin-top: 5px; margin-left: 20px;'>
-
-                            <input style='float: left; height: 17px; width: 130px;' /></div>
-
-                            <span class='jqx-menu-search' style='margin-top: 5px; margin-left: 3px; padding: 2px; float: left;'>Search</span>
-
-                    </li>
 
                 </ul>
             </div>

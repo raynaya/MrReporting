@@ -55,10 +55,18 @@ public class login extends HttpServlet {
                  //  s.execute("insert into mr (name) values ('"+name+"')"); Just to see if the db connection is working or not
                    String query="select * from USERMASTER where LOGINID='"+loginid+"'";
                    ResultSet rs=s.executeQuery(query);
-                   rs.next();
+
+                   if(!rs.next()){
+                       response.sendRedirect("/login.jsp?message=User doesnt exist!");
+                        return;
+                   }
+                   
+
                   String pass=rs.getString("LOGINPASSWORD");
                    if(!pass.equals(pass1)){
+                       //System.out.println("Not Equal!!");
                         response.sendRedirect("/login.jsp?message=User/password doesnt match !");
+                        return;
                    }
                    HashSet set=(HashSet) getServletContext().getAttribute("OnlineList");
                    

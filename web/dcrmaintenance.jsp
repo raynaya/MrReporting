@@ -1,18 +1,16 @@
-<%-- 
-    Document   : mrhome
-    Created on : Apr 4, 2012, 1:33:43 PM
-    Author     : shamik
-    Desription : this page will be the homepage of MR.
---%>
 
+ 
 <%@page import="DatabaseConnection.DbConnection"%>
 <%@page import="java.sql.*"%>
 <%@page import="Org.MrReporting.Shamik.BeanClass.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
+
 <html>
+
     <head> <SCRIPT type="text/javascript"   language="javascript">
         function addRow(tableID) {
 
@@ -83,17 +81,26 @@
 
     <link href="styles/mrstyles.css" rel="stylesheet" type="text/css">
     </head>
+
     <body>
+        
+
+    
+ 
     <div id="headerbar">
     <% Mr userInfo= (Mr) request.getSession().getAttribute("UserInfo");
-    String hqname=userInfo.getHqName();
+    String hqname="",name="";
+    
+    hqname =userInfo.getHqName();
+    name=userInfo.getFirstName();
+    
     DbConnection db = new DbConnection();
             Connection c=db.createConnection();
             Statement s =c.createStatement();
         ResultSet  area =s.executeQuery("select * from AREAMASTER where HQNAME='"+hqname+"'");
        
         %>
-        <span id="welcomename" style=" position: absolute; font-weight: 600; color: brown;   margin-left: 20px;  padding-top: 20px " > Hello <%=userInfo.getFirstName()%></span>
+        <span id="welcomename" style=" position: absolute; font-weight: 600; color: brown;   margin-left: 20px;  padding-top: 20px " > Hello <%=name%></span>
         <div class="headerbarlist" title="Log Out" id="logout"
              onclick="$.ajax({
   url: 'logout',
@@ -110,7 +117,7 @@
             $(document).ready(function () {
                 var theme = getTheme();
                 // Create a jqxMenu
-                $("#jqxMenu").jqxMenu({ width: '950', height: '40px',autoOpen: false, showTopLevelArrows: true , theme: theme });
+                $("#jqxMenu").jqxMenu({ mode:'vertical', width: '150px', height: '200px',autoOpen: false, showTopLevelArrows: true , theme: theme });
                 $("#jqxMenu").css('visibility', 'visible');
                 $("#disabled").jqxCheckBox({ theme: theme, width: '150px', height: '20px' });
                 $("#open").jqxCheckBox({ theme: theme, width: '150px', height: '20px' });
@@ -176,25 +183,16 @@
          <div id='jqxWidget' style='height: 300px; position: relative; top: 100px; left: 80px; '>
             <div id='jqxMenu' style='visibility: hidden; margin-left: 60px;'>
                 <ul>
-                    <li><a href="#Home">Home</a></li>
+                    <li><a href="/home.jsp">Home</a></li>
                     <li>MrTasks
                         <ul style='width: 250px;'>
+                            <li><a href="#">Tour Plan</a></li>
                             <li><a href="/dcrmaintenance.jsp">DCR</a></li>
                             <li><a href="/ccrmaintenance.jsp">ChemistCR</a></li>
-                            <li><a href="#Government">Government</a></li>
-                            <li><a href="#Manufacturing">Manufacturing</a></li>
-                            <li type='separator'></li>
-                            <li>Software Solutions
-                                <ul style='width: 220px;'>
-                                    <li><a href="#ConsumerPhoto">Consumer photo and video</a></li>
-                                    <li><a href="#Mobile">Mobile</a></li>
-                                    <li><a href="#RIA">Rich Internet applications</a></li>
-                                    <li><a href="#TechnicalCommunication">Technical communication</a></li>
-                                    <li><a href="#Training">Training and eLearning</a></li>
-                                    <li><a href="#WebConferencing">Web conferencing</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">All industries and solutions</a></li>
+                            <li><a href="#">Stockist Sales Position</a></li>
+                            <li><a href="#">Expenses</a></li>
+                            <li><a href="#">Leave Application</a></li>
+                                                    
                         </ul>
                     </li>
                     <li>Products
@@ -249,21 +247,19 @@
                             <li><a href="#Become an affiliate">Become an affiliate</a></li>
                         </ul>
                     </li>
-					<li style='  right: 10px; position: relative; list-style: none;' ignoretheme='true'>
-
-                        <div style='float: left; height: 35px; margin-top: 5px; margin-left: 20px;'>
-
-                            <input style='float: left; height: 17px; width: 130px;' /></div>
-
-                            <span class='jqx-menu-search' style='margin-top: 5px; margin-left: 3px; padding: 2px; float: left;'>Search</span>
-
-                    </li>
+					
 
                 </ul>
             </div>
             <br />
 
         </div>
+
+
+        <%if(request.getSession().getAttribute("message")!=null){%>
+        <%=request.getSession().getAttribute("message").toString()%>
+            <% request.getSession().removeAttribute("message"); }
+    %>
 
         <div id="container">
  <script type="text/javascript">
