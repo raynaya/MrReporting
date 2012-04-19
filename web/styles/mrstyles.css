@@ -25,16 +25,16 @@ border-bottom-left-radius: 10px;
 	border-right-width: thin;
 	border-bottom-width: thin;
 	border-left-width: thin;
-	border-top-style: dotted;
-	border-right-style: dotted;
-	border-bottom-style: dotted;
-	border-left-style: dotted;
+	border:  black  inset;
 	padding: 20px;
 	width: auto;
        position:absolute;
-
-        top:110px;
+       top:110px;
         left:320px;
+        -webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+ background-color:  #cccccc;
 }
 #logout {
  height: 18px;
